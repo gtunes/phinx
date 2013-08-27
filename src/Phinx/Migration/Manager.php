@@ -28,10 +28,8 @@
  */
 namespace Phinx\Migration;
 
-use Symfony\Component\Config\FileLocator,
-    Symfony\Component\Console\Output\OutputInterface,
+use Symfony\Component\Console\Output\OutputInterface,
     Symfony\Component\Console\Output\NullOutput,
-    Phinx\Db\Adapter\AdapterInterface,
     Phinx\Config\Config,
     Phinx\Migration\Manager\Environment;
 
@@ -56,23 +54,24 @@ class Manager
      * @var array
      */
     protected $migrations;
-    
+
     /**
      * Class Constructor.
      *
      * @param Config $config Config
      * @param OutputInterface $output Console Output
-     * @return void
+     * @return \Phinx\Migration\Manager
      */
     public function __construct(Config $config, OutputInterface $output)
     {
         $this->setConfig($config);
         $this->setOutput($output);
     }
-    
+
     /**
      * Prints the specified environment's migration status.
      *
+     * @param $environment
      * @return void
      */
     public function printStatus($environment)
@@ -118,7 +117,7 @@ class Manager
         // write an empty line
         $output->writeln('');
     }
-    
+
     /**
      * Migrate an environment to the specified version.
      *
@@ -132,7 +131,8 @@ class Manager
         $env = $this->getEnvironment($environment);
         $versions = $env->getVersions();
         $current = $env->getCurrentVersion();
-        
+        $output = $this->getOutput();
+
         if (empty($versions) && empty($migrations)) {
             return;
         }
@@ -276,12 +276,13 @@ class Manager
         $this->environments = $environments;
         return $this;
     }
-    
+
     /**
      * Gets the manager class for the given environment.
      *
      * @param string $name Environment Name
-     * @return void
+     * @throws \InvalidArgumentException
+     * @return \Phinx\Migration\Manager\Environment
      */
     public function getEnvironment($name)
     {

@@ -29,6 +29,7 @@
 namespace Phinx\Migration;
 
 use Phinx\Db\Adapter\AdapterInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Migration interface
@@ -80,7 +81,18 @@ interface MigrationInterface
      * @return AdapterInterface
      */
     public function getAdapter();
-    
+
+    /**
+     * @param OutputInterface $output
+     * @return mixed
+     */
+    public function setOutput(OutputInterface $output);
+
+    /**
+     * @return mixed
+     */
+    public function getOutput();
+
     /**
      * Gets the name.
      *

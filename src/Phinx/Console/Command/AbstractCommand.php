@@ -142,7 +142,7 @@ abstract class AbstractCommand extends Command
     /**
      * Gets the migration manager.
      *
-     * @return \Manager
+     * @return Manager
      */
     public function getManager()
     {

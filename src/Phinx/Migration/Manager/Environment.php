@@ -79,7 +79,7 @@ class Environment
         $this->name = $name;
         $this->options = $options;
     }
-    
+
     /**
      * Executes the specified migration on this environment.
      *
@@ -92,7 +92,8 @@ class Environment
         $startTime = time();
         $direction = ($direction == MigrationInterface::UP) ? MigrationInterface::UP : MigrationInterface::DOWN;
         $migration->setAdapter($this->getAdapter());
-        
+        $migration->setOutput($this->getOutput());
+
         // begin the transaction if the adapter supports it
         if ($this->getAdapter()->hasTransactions()) {
             $this->getAdapter()->beginTransaction();
