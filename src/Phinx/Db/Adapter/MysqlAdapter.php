@@ -625,6 +625,9 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
             case 'string':
                 return array('name' => 'varchar', 'limit' => 255);
                 break;
+            case 'char':
+                return array('name' => 'char', 'limit' => 255);
+                break;
             case 'text':
                 return array('name' => 'text');
                 break;
